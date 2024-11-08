@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="change">
+    <h1 class="main">Resume Builder</h1>
+    <form action="" method="post" id="resumeForm">
+        <label for="name">Name:</label>
+        <br>
+        <input type="text" placeholder="Name" id="name" name="name">
+        <br><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" placeholder="Email" name="email" id="email">
+        <br><br>
+        
+        <label for="phone">Phone:</label><br>
+        <input type="text" placeholder="Phone" name="phone" id="phone">
+        <br><br>
+        
+        <label for="linkedinId">LinkedIn ID:</label><br>
+        <input type="text" placeholder="LinkedIn ID" name="linkedinId" id="linkedinId">
+        <br><br>
+        
+        <label for="githubId">GitHub ID:</label><br>
+        <input type="text" placeholder="GitHub ID" name="githubId" id="githubId">
+        <br><br>
+        
+        <label for="experience">Experience:</label><br>
+        <textarea placeholder="Experience" name="experience" id="experience" rows="3"></textarea>
+        <br><br>
+        
+        <label for="education">Education:</label><br>
+        <textarea placeholder="Education" name="education" id="education" rows="3"></textarea>
+        <br><br>
+        
+        <label for="photo">Upload Photo:</label><br>
+        <input type="file" name="photo" id="photo">
+        <br><br>
+        
+        <center><button type="submit">Generate Resume</button></center>
+    </form>   
+</div>
+
+<div class="change" id="display" style="display: none;">
+    <div class="border">
+        <div id="Name"></div>
+        <div id="Photo"></div>
+        <div id="Email"></div>
+        <div id="Phone"></div>
+        <div id="LinkedIn"></div>
+        <div id="GitHub"></div>
+        <div id="Education"></div>
+        <div id="Experience"></div>
+    </div>
+</div>
+
+<script>
+document.getElementById('resumeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const Name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const linkedin = document.getElementById('linkedinId').value;
+    const github = document.getElementById('githubId').value;
+    const experience = document.getElementById('experience').value;
+    const education = document.getElementById('education').value;
+    const photoInput = document.getElementById('photo');
+
+    // Display text fields
+    document.getElementById('Name').innerHTML = `<h3>Name</h3><p>${Name}</p>`;
+    document.getElementById('Email').innerHTML = `<h3>Email</h3><p>${email}</p>`;
+    document.getElementById('Phone').innerHTML = `<h3>Phone</h3><p>${phone}</p>`;
+    document.getElementById('LinkedIn').innerHTML = `<h3>LinkedIn</h3><p>${linkedin}</p>`;
+    document.getElementById('GitHub').innerHTML = `<h3>GitHub</h3><p>${github}</p>`;
+    document.getElementById('Education').innerHTML = `<h3>Education</h3><p>${education}</p>`;
+    document.getElementById('Experience').innerHTML = `<h3>Experience</h3><p>${experience}</p>`;
+
+    // Handle photo display if a file is selected
+    if (photoInput.files && photoInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('Photo').innerHTML = `<h3>Photo</h3><img src="${e.target.result}" alt="Uploaded Photo" style="max-width: 100px;">`;
+        };
+        reader.readAsDataURL(photoInput.files[0]);
+    } else {
+        document.getElementById('Photo').innerHTML = `<h3>Photo</h3><p>No photo uploaded</p>`;
+    }
+
+    // Hide form and show display section
+    document.getElementById('resumeForm').style.display = 'none';
+    document.getElementById('display').style.display = 'block';
+});
+</script>
+
+</body>
+</html>
